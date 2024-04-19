@@ -114,10 +114,8 @@ class RBTree:
             elif value > current.value:
                 current = current.right
             else:
-                print(f"Found in tree!")
-                return current
-        print("Element not in tree")
-        return None
+                return True
+        return False
 
     def getBlackHeight(self):
         # Just go down the tree till we hit a null, counting black nodes

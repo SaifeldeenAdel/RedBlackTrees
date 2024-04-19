@@ -17,16 +17,23 @@ class Dictionary:
         self.tree = load_dictionary(file_name)
 
     def insert_word(self, word):
-        self.tree.insert(word)
-        print("Word inserted successfully!")
-        self.tree.getTreeSize(self.tree.root)
-        self.tree.getTreeHeight(self.tree.root)
-        self.tree.getBlackHeight()
-        self.update_file(word)
+        if not self.tree.searchTree(word):
+            self.tree.insert(word)
+            print("Word inserted successfully!")
+            self.tree.printInfo()
+            self.update_file(word)
+        else:
+            print("ERROR: Word already in the dictionary!")
 
     def update_file(self, word):
         with open(self.file_name, 'a') as file:
             file.write('\n' + word)
+
+    def search_dictionary(self, search_word):
+        if self.tree.searchTree(search_word):
+            print(f"Found in tree!")
+        else:
+            print("Element not in tree")
 
 
 def main():
@@ -49,7 +56,7 @@ def main():
 
         elif choice == "2":
             search_word = input("Enter word: ")
-            dictionary.tree.searchTree(search_word)
+            dictionary.search_dictionary(search_word)
 
         elif choice == "3":
             print(dictionary.tree.getTreeHeight(dictionary.tree.root))

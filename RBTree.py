@@ -21,8 +21,11 @@ class RBTree:
             parent = current
             if newNode.value < current.value:
                 current = current.left
-            else:
+            elif newNode.value > current.value:
                 current = current.right
+            else:
+                print("ERROR: Word already in the dictionary!")
+                return
 
         # Setting parent and inserting new node
         newNode.parent = parent

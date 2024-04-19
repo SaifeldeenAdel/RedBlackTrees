@@ -54,7 +54,7 @@ class RBTree:
     def rotateRight(self, a):
         b = a.left
         a.left = b.right
-        if b.right != self.nil:
+        if b.right != self.null:
             b.right.parent = a
 
         b.parent = a.parent
@@ -142,6 +142,20 @@ class RBTree:
 
         return maximum + 1
 
+    def getTreeSize(self, root):
+        if self.root == None:
+            return 0
+        else:
+            countLeft = 0
+            countRight = 0
+
+            if root.left != None and root.left != self.null:
+                countLeft = self.getTreeSize(root.left)
+            if root.right != None and root.right != self.null:
+                countRight = self.getTreeSize(root.right)
+
+        return countLeft + countRight + 1
+
     def printTreeRec(self, root, space):
         # Base case
         if root == None:
@@ -162,14 +176,19 @@ class RBTree:
     def printTree(self):
         self.printTreeRec(self.root, 0)
 
+    def printInfo(self):
+        print(f"Tree Height: {self.getTreeHeight(self.root)}")
+        print(f"Black Height: {self.getBlackHeight()}")
+        print(f"Tree Size: {self.getTreeSize(self.root)}")
+
 
 def main():
     tree = RBTree()
-    for x in range(1, 8):
-        tree.insert(x)
+    for x in range(1, 5):
+        n = input("Enter: ")
+        tree.insert(n)
+        tree.printInfo()
     tree.printTree()
-    print(f"Black height: {tree.getBlackHeight()}")
-    print(f"Tree height: {tree.getTreeHeight(tree.root)}")
 
 
 if __name__ == "__main__":
